@@ -5,6 +5,7 @@ from pydantic import BaseModel
 
 class ProjectConfigurationFile(BaseModel): 
     ProjectName: str
+    ProjectGitHubUrl: str
     Language: str
     LanguageVersion: str
     ExtraCommands: list[dict]
@@ -82,6 +83,7 @@ class BaseProjectConfiguration:
             
         default_config = {
             "ProjectName": project_name,
+            "ProjectGitHubUrl": f"https://github.com/<USERNAME>/{project_name}",
             "Language": language,
             "LanguageVersion": language_version,
             "ExtraCommands": [],
