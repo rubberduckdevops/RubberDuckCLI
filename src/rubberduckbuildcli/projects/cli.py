@@ -31,7 +31,7 @@ def testing_cli_function(personal_config: bool = False):
         
 
 @app.command()
-def init(app: str = "default", version:str = "0.1.0", skip_init: bool = False):
+def init(app: str = "default", version:str = "0.1.0", skip_init: bool = False, skip_github: bool = True):
     """
     Initialize a project
     :param app:

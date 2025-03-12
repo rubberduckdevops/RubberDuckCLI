@@ -8,6 +8,7 @@ class ProjectConfigurationFile(BaseModel):
     Language: str
     LanguageVersion: str
     ExtraCommands: list[dict]
+    GithubWF: list[dict]
 
     @classmethod
     def load_config_json(cls, file_path: str) -> 'ProjectConfigurationFile':
