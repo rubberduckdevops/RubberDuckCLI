@@ -84,7 +84,8 @@ class BaseProjectConfiguration:
             "ProjectName": project_name,
             "Language": language,
             "LanguageVersion": language_version,
-            "ExtraCommands": []
+            "ExtraCommands": [],
+            "GithubWF": []
         }
         
         # Create the configuration file
