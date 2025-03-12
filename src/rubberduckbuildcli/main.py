@@ -46,7 +46,8 @@ def configure_cli_options(show: bool = False):
                     print(f"    {subkey} = {subvalue}")
         else: 
             print("No Config file found")
-        
+
+
 
 @app.callback(invoke_without_command=True)
 def check_config_file(ctx: typer.Context):

@@ -14,7 +14,7 @@ dependencies = [
 classifiers = ["Private :: Do Not Upload"]
 
 [project.scripts]
-rdb = "rubberduckbuildcli.main:app"
+rubberduck = "rubberduckbuildcli.main:app"
 
 [tool.uv]
 package = true
