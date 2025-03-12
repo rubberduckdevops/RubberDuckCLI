@@ -1,0 +1,19 @@
+[project]
+name = "rubberduckbuildcli"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.10.6",
+    "rich>=13.9.4",
+    "ruff>=0.9.10",
+    "typer>=0.15.2",
+]
+classifiers = ["Private :: Do Not Upload"]
+
+[project.scripts]
+rdb = "rubberduckbuildcli.main:app"
+
+[tool.uv]
+package = true

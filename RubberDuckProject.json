@@ -1,0 +1,9 @@
+{
+    "ProjectName": "RubberDuckBuildCLI",
+    "Language": "Python",
+    "LanguageVersion": ">3.9",
+    "ExtraCommands": [
+        {"mytest": "echo 'Hello'"},
+        {"run": "echo running Application"}
+    ]
+}
