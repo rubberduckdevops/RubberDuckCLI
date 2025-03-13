@@ -10,15 +10,7 @@
     "GithubWF": {
             "Artifact_python_zip": {
                 "name": "project-artifact",
-                "include": [
-                    "dist/**/*",
-                    "README.md",
-                    "LICENSE"
-                ],
-                "exclude": [
-                    "**/*.map",
-                    "**/__tests__/**"
-                ],
+                "include": "dist/",
                 "setup_commands": "uv install",
                 "build_commands": "uv build"
             }

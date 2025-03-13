@@ -144,12 +144,8 @@ class GithubWorkflows:
                             "run": artifact_config.get("build_commands", "echo 'No build required'")
                         },
                         {
-                            "name": "Create artifact directory",
-                            "run": "mkdir -p artifacts"
-                        },
-                        {
                             "name": "Upload artifact",
-                            "uses": "actions/upload-artifact@v3",
+                            "uses": "actions/upload-artifact@v4",
                             "with": {
                                 "name": artifact_name,
                                 "path": paths_to_include,
