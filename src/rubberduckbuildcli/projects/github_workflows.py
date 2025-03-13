@@ -157,6 +157,28 @@ class GithubWorkflows:
                             }
                         }
                     ]
+                },
+                "release": {
+                    "needs": "build",
+                    "runs-on": "ubuntu-latest",
+                    "if": "startsWith(github.ref, 'refs/tags/')",
+                    "steps": [
+                        {
+                            "name": "Download all artifacts",
+                            "uses": "actions/download-artifact@v3",
+                            "with": {
+                                "path": "artifacts"
+                            }
+                        },
+                        {
+                            "name": "Create Release",
+                            "uses": "softprops/action-gh-release@v2",
+                            "if": "startsWith(github.ref, 'refs/tags/')",
+                            "with": {
+                                "files": "dist/*"
+                            }
+                        }
+                    ]
                 }
             }
         }
