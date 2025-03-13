@@ -11,8 +11,10 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+    - name: Install UV
+      uses: astral-sh/setup-uv@v5
     - name: Set up environment
-      run: uv install
+      run: echo 'No setup required'
     - name: Build project
       run: uv build
     - name: Upload artifact

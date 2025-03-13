@@ -136,6 +136,10 @@ class GithubWorkflows:
                             "uses": "actions/checkout@v3"
                         },
                         {
+                            "name": "Install UV",
+                            "uses": "astral-sh/setup-uv@v5"
+                        },
+                        {
                             "name": "Set up environment",
                             "run": artifact_config.get("setup_commands", "echo 'No setup required'")
                         },
