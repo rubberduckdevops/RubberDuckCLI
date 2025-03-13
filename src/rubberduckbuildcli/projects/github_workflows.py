@@ -108,67 +108,67 @@ class GithubWorkflows:
         print("Generated Docker workflow: .github/workflows/docker-build.yml")
 
 
-def generate_artifact_zip_workflow(config, workflows_dir):
-    """Generate a workflow to create and upload a zip artifact."""
-    artifact_config = config.get("GitHubWF", {}).get("Artifact_zip", {})
-    if not artifact_config:
-        print("No Artifact_zip workflow configuration found")
-        return
-    
-    artifact_name = artifact_config.get("name", config.get("name", "artifact"))
-    paths_to_include = artifact_config.get("include", ["**/*"])
-    paths_to_exclude = artifact_config.get("exclude", [])
-    
-    workflow = {
-        "name": "Build and Upload Artifact",
-        "on": {
-            "push": {
-                "branches": ["main", "master"],
-                "tags": ["v*"]
-            }
-        },
-        "jobs": {
-            "build": {
-                "runs-on": "ubuntu-latest",
-                "steps": [
-                    {
-                        "name": "Checkout repository",
-                        "uses": "actions/checkout@v3"
-                    },
-                    {
-                        "name": "Set up environment",
-                        "run": artifact_config.get("setup_commands", "echo 'No setup required'")
-                    },
-                    {
-                        "name": "Build project",
-                        "run": artifact_config.get("build_commands", "echo 'No build required'")
-                    },
-                    {
-                        "name": "Create artifact directory",
-                        "run": "mkdir -p artifacts"
-                    },
-                    {
-                        "name": "Upload artifact",
-                        "uses": "actions/upload-artifact@v3",
-                        "with": {
-                            "name": artifact_name,
-                            "path": paths_to_include,
-                            "if-no-files-found": "error"
+    def generate_artifact_zip_workflow(self, config):
+        """Generate a workflow to create and upload a zip artifact."""
+        artifact_config = config.get("GithubWF", {}).get("Artifact_python_zip", {})
+        if not artifact_config:
+            print("No Artifact_zip workflow configuration found")
+            return
+
+        artifact_name = artifact_config.get("name", config.get("name", "artifact"))
+        paths_to_include = artifact_config.get("include", ["**/*"])
+        paths_to_exclude = artifact_config.get("exclude", [])
+
+        workflow = {
+            "name": "Build and Upload Artifact",
+            "on": {
+                "push": {
+                    "branches": ["main"],
+                    "tags": ["v*"]
+                }
+            },
+            "jobs": {
+                "build": {
+                    "runs-on": "ubuntu-latest",
+                    "steps": [
+                        {
+                            "name": "Checkout repository",
+                            "uses": "actions/checkout@v3"
+                        },
+                        {
+                            "name": "Set up environment",
+                            "run": artifact_config.get("setup_commands", "echo 'No setup required'")
+                        },
+                        {
+                            "name": "Build project",
+                            "run": artifact_config.get("build_commands", "echo 'No build required'")
+                        },
+                        {
+                            "name": "Create artifact directory",
+                            "run": "mkdir -p artifacts"
+                        },
+                        {
+                            "name": "Upload artifact",
+                            "uses": "actions/upload-artifact@v3",
+                            "with": {
+                                "name": artifact_name,
+                                "path": paths_to_include,
+                                "if-no-files-found": "error"
+                            }
                         }
-                    }
-                ]
+                    ]
+                }
             }
         }
-    }
-    
-    # Handle path exclusions
-    if paths_to_exclude:
-        workflow["jobs"]["build"]["steps"][-1]["with"]["exclude"] = paths_to_exclude
-    
-    with open(workflows_dir / "artifact-upload.yml", "w") as f:
-        yaml.dump(workflow, f, sort_keys=False)
-    
-    print("Generated Artifact workflow: .github/workflows/artifact-upload.yml")
+
+        # Handle path exclusions
+        if paths_to_exclude:
+            workflow["jobs"]["build"]["steps"][-1]["with"]["exclude"] = paths_to_exclude
+
+        with open(self.workflow_dir / "artifact-upload.yml", "w") as f:
+            yaml.dump(workflow, f, sort_keys=False)
+
+        print("Generated Artifact workflow: .github/workflows/artifact-upload.yml")
 
 # def generate_executable_workflow(config, workflows_dir):
 #     """Generate a workflow to build and release executables."""

@@ -1,10 +1,26 @@
 {
     "ProjectName": "RubberDuckBuildCLI",
+    "ProjectGitHubUrl": "https://github.com/rubberduckdevops/RubberDuckCLI",
     "Language": "Python",
     "LanguageVersion": ">3.9",
     "ExtraCommands": [
         {"mytest": "echo 'Hello'"},
         {"run": "echo running Application"}
     ],
-    "GithubWF": []
+    "GithubWF": {
+            "Artifact_python_zip": {
+                "name": "project-artifact",
+                "include": [
+                    "dist/**/*",
+                    "README.md",
+                    "LICENSE"
+                ],
+                "exclude": [
+                    "**/*.map",
+                    "**/__tests__/**"
+                ],
+                "setup_commands": "uv install",
+                "build_commands": "uv build"
+            }
+    }
 }

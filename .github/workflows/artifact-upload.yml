@@ -1,0 +1,31 @@
+name: Build and Upload Artifact
+'on':
+  push:
+    branches:
+    - main
+    tags:
+    - v*
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Set up environment
+      run: uv install
+    - name: Build project
+      run: uv build
+    - name: Create artifact directory
+      run: mkdir -p artifacts
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: project-artifact
+        path:
+        - dist/**/*
+        - README.md
+        - LICENSE
+        if-no-files-found: error
+        exclude:
+        - '**/*.map'
+        - '**/__tests__/**'

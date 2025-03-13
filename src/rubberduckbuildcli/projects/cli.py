@@ -8,6 +8,7 @@ from .configurations import BaseProjectConfiguration
 from .exceptions import ProjectBuildError, ProjectRunError
 from ..helpers.uv import UVExecution
 from ..helpers.git import GitExecution
+from .github_workflows import GithubWorkflows
 
 app = typer.Typer()
 
@@ -67,6 +68,16 @@ def init(app: str = "default", version:str = "0.1.0", skip_init: bool = False, s
     if user_config.get('git'):
         git.set_local_config(username=user_config.get('git').get('username', 'whoops'), 
                              email=user_config.get('git').get('email', 'whoops@rubberduck-labs.com'))
+
+@app.command()
+def setup_workflows():
+    project_config = BaseProjectConfiguration()
+    if project_config.config_exists():
+        print("Seting up workflows...")
+        ghwf = GithubWorkflows()
+        ghwf.generate_artifact_zip_workflow(project_config)
+
+
 
 @app.command()
 def dependency_add(package: Annotated[Optional[List[str]], typer.Option()] = None ):
